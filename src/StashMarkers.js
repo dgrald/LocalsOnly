@@ -22,9 +22,9 @@ class StashMarkers extends Component {
   componentWillUnmount() {
     this.serverRequest.abort();
   }
-  
+
   render() {
-    var stashes = this.state.stashes.map(function(nextStash, index){
+    var stashes = _.map(this.state.stashes, function(nextStash, index){
         var nextPosition = [nextStash.location.latitude, nextStash.location.longitude]
         return <Marker position={nextPosition} key={index}>
                   <Popup>
