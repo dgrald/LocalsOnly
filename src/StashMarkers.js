@@ -12,15 +12,19 @@ class StashMarkers extends Component {
   }
 
   componentDidMount() {
-    this.serverRequest = $.get(this.props.source, function (result) {
-      this.setState({
-        stashes: result
-      });
-    }.bind(this));
+    if(this.props.source) {
+      this.serverRequest = $.get(this.props.source, function (result) {
+        this.setState({
+          stashes: result
+        });
+      }.bind(this));
+    }
   }
 
   componentWillUnmount() {
-    this.serverRequest.abort();
+    if(this.props.source) {
+      this.serverRequest.abort();
+    }
   }
 
   render() {

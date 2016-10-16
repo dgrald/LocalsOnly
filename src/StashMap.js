@@ -12,10 +12,14 @@ class StashMap extends Component {
     };
   }
 
+  selectLocation = (e) => {
+    console.log(e.latlng); // e is an event object (MouseEvent in this case)
+  }
+
   render() {
     const position = [this.state.lat, this.state.lng];
     return (
-      <Map center={position} zoom={this.state.zoom}>
+      <Map center={position} zoom={this.state.zoom} onClick={this.selectLocation}>
         <TileLayer
           url="https://api.mapbox.com/styles/v1/dgrald/ciu7h14go00082hqnzimmf3oq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGdyYWxkIiwiYSI6ImNpanJoaXRhYjBha2Z0aG01OW1ha3Q5ZG4ifQ.oVkcFro9ahsr9cLcZgoTgg"
         />
