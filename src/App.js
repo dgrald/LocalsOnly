@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div id="container">
-          <StashMap source="http://localhost:8080/trails"></StashMap>
+          <StashMap source="https://locals-only-service.herokuapp.com/trails"></StashMap>
       </div>
     );
   }

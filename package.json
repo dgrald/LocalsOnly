@@ -2,6 +2,7 @@
   "name": "LocalsOnly",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://dgrald.github.io/LocalsOnly",
   "devDependencies": {
     "enzyme": "^2.4.1",
     "react-addons-test-utils": "^15.3.2",
