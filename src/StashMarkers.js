@@ -11,7 +11,7 @@ class StashMarkers extends Component {
     };
   }
 
-  componentDidMount() {
+  refreshStashes = () => {
     if(this.props.source) {
       this.serverRequest = $.get(this.props.source, function (result) {
         this.setState({
@@ -19,6 +19,10 @@ class StashMarkers extends Component {
         });
       }.bind(this));
     }
+  }
+
+  componentDidMount() {
+    this.refreshStashes();
   }
 
   componentWillUnmount() {

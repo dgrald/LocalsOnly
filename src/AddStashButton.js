@@ -10,6 +10,7 @@ class AddStashButton extends Component {
 
   close = () => {
     this.setState({showModal: false});
+    this.props.refreshStashes();
   }
 
   open = () => {
@@ -27,15 +28,7 @@ class AddStashButton extends Component {
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add Stash</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <AddStashModal />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
-          </Modal.Footer>
+          <AddStashModal close={this.close}/>
         </Modal>
       </div>
     );
