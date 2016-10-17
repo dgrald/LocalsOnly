@@ -6,6 +6,7 @@ import $ from 'jquery';
 class AddStashModal extends Component {
   state = {
     selectlocation: [],
+    markers: [],
     postButtonClass: "disabled"
   }
 
@@ -25,7 +26,7 @@ class AddStashModal extends Component {
   }
 
   selectedlocationchange = (newValue) => {
-    this.setState({selectlocation: newValue, postButtonClass: "btn-primary"});
+    this.setState({selectlocation: newValue, postButtonClass: "btn-primary", markers: [{location: {latitude: newValue.lat, longitude: newValue.lng}}]});
   }
 
   render() {
@@ -35,7 +36,7 @@ class AddStashModal extends Component {
         <Modal.Title>Add Stash</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <StashMap selectedlocationchange={this.selectedlocationchange.bind(this)}/>
+      <StashMap selectedlocationchange={this.selectedlocationchange.bind(this)} markers={this.state.markers}/>
       </Modal.Body>
       <Modal.Footer>
         <Button className={this.state.postButtonClass} onClick={this.post}>Add Stash</Button>
