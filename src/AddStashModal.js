@@ -3,36 +3,50 @@ import StashMap from './StashMap';
 import {Modal, Button} from 'react-bootstrap';
 import $ from 'jquery';
 import './AddStashModal.css';
+import LoadMask from './LoadMask';
+import ErrorModal from './ErrorModal';
 
 class AddStashModal extends Component {
   state = {
     selectlocation: null,
     description: "",
     markers: [],
-    postButtonClass: "disabled"
+    postButtonClass: "disabled",
+    loadMask: false,
+    hasError: false,
+    error: null
   }
 
   onSuccess = () => {
-      this.props.close(true);
+    this.setState({loadMask: false});
+    this.props.close();
+  }
+
+  onFailure = (error) => {
+    this.setState({loadMask: false, hasError: true, error: error});
   }
 
   getPostButtonClass = (inputLocation, inputDescription) => {
     if(!inputDescription) {
-      return false;
+      return "disabled";
     }
 
     return inputLocation ? "btn-primary" : "disabled";
   }
 
   post = () => {
-    let location = {latitude: this.state.selectlocation.lat, longitude: this.state.selectlocation.lng};
-    let data = {name: this.state.description, location: location};
-    $.ajax("https://locals-only-service.herokuapp.com/trails", {
-        data : JSON.stringify(data),
-        contentType : 'application/json',
-        type : 'POST',
-        success: this.onSuccess
-      });
+    if(this.state.description && this.state.selectlocation) {
+      this.setState({loadMask: true});
+      let location = {latitude: this.state.selectlocation.lat, longitude: this.state.selectlocation.lng};
+      let data = {name: this.state.description, location: location};
+      $.ajax("https://locals-only-service.herokuapp.com/trails", {
+          data : JSON.stringify(data),
+          contentType : 'application/json',
+          type : 'POST',
+        }).then(function(){
+          this.onSuccess();
+        }.bind(this));
+    }
   }
 
   selectedlocationchange = (newValue) => {
@@ -42,8 +56,6 @@ class AddStashModal extends Component {
   handleDescriptionChange = (event) => {
     let newState = {
       description: event.target.value,
-      selectlocation: this.state.selectlocation,
-      markers: this.state.markers,
       postButtonClass: this.getPostButtonClass(this.state.selectlocation, event.target.value)
     };
     this.setState(newState);
@@ -65,6 +77,8 @@ class AddStashModal extends Component {
         <Button className={this.state.postButtonClass} onClick={this.post}>Add Stash</Button>
         <Button onClick={this.props.close}>Close</Button>
       </Modal.Footer>
+      <LoadMask show={this.state.loadMask}/>
+      <ErrorModal show={this.state.hasError} message={this.state.error}/>
       </div>
     );
   }
