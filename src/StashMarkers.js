@@ -6,7 +6,7 @@ class StashMarkers extends Component {
 
   render() {
     var stashes = _.map(this.props.markers, function(nextStash, index){
-        let nextPosition = [nextStash.location.latitude, nextStash.location.longitude]
+        let nextPosition = [nextStash.location.coordinates[1], nextStash.location.coordinates[0]];
         let popup = nextStash.name ?
         <Popup>
           <span>{nextStash.name}</span>

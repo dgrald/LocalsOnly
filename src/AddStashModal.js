@@ -23,7 +23,8 @@ class AddStashModal extends Component {
   }
 
   onFailure = (error) => {
-    this.setState({loadMask: false, hasError: true, error: error});
+    let errorMessage = error.statusText + ": " + error.responseText
+    this.setState({loadMask: false, hasError: true, error: errorMessage});
   }
 
   getPostButtonClass = (inputLocation, inputDescription) => {
@@ -37,7 +38,7 @@ class AddStashModal extends Component {
   post = () => {
     if(this.state.description && this.state.selectlocation) {
       this.setState({loadMask: true});
-      let location = {latitude: this.state.selectlocation.lat, longitude: this.state.selectlocation.lng};
+      let location = {type: "Point", coordinates: [this.state.selectlocation.lng, this.state.selectlocation.lat]};
       let data = {name: this.state.description, location: location};
       $.ajax("https://locals-only-service.herokuapp.com/trails", {
           data : JSON.stringify(data),
@@ -45,12 +46,14 @@ class AddStashModal extends Component {
           type : 'POST',
         }).then(function(){
           this.onSuccess();
+        }.bind(this), function(error){
+          this.onFailure(error);
         }.bind(this));
     }
   }
 
   selectedlocationchange = (newValue) => {
-    this.setState({selectlocation: newValue, postButtonClass: this.getPostButtonClass(newValue, this.state.description), markers: [{location: {latitude: newValue.lat, longitude: newValue.lng}}]});
+    this.setState({selectlocation: newValue, postButtonClass: this.getPostButtonClass(newValue, this.state.description), markers: [{location: {coordinates : [newValue.lng, newValue.lat], type: "Point"}}]});
   }
 
   handleDescriptionChange = (event) => {

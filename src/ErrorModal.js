@@ -3,7 +3,7 @@ import {Modal, Button} from 'react-bootstrap';
 
 class ErrorModal extends Component {
 
-  state: {
+  state = {
     show: true
   }
 
