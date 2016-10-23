@@ -28,13 +28,13 @@ describe("StashStore", () => {
   });
 
   describe("getStashes()", () => {
-    it("should return stash with getStashes()", () => {
+    it("should return stashes", () => {
       return StashStore.getAll().then(s => expect(s).toEqual(stashes));
     });
   });
 
   describe("addStash(stash)", () => {
-    it("should call POST correctly", () => {
+    it("should POST new stash", () => {
       return StashStore.addStash(newStash).then(s => expect(s).toEqual(newStash));
     });
   });

@@ -8,8 +8,6 @@ var StashStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     return $.ajax(baseUrl, {
               type : 'GET',
-            }).then(function(data){
-              return data;
             });
   },
 
@@ -18,8 +16,6 @@ var StashStore = assign({}, EventEmitter.prototype, {
         data : JSON.stringify(stash),
         contentType : 'application/json',
         type : 'POST',
-      }).then(function(data){
-        return data;
       });
   }
 });
