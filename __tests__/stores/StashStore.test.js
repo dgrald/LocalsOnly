@@ -28,14 +28,18 @@ describe("StashStore", () => {
   });
 
   describe("getStashes()", () => {
-    it("should return stashes", () => {
-      return StashStore.getAll().then(s => expect(s).toEqual(stashes));
+    it("should return stashes", async () => {
+      const actual = await StashStore.getAll();
+
+      expect(actual).toEqual(stashes);
     });
   });
 
   describe("addStash(stash)", () => {
-    it("should POST new stash", () => {
-      return StashStore.addStash(newStash).then(s => expect(s).toEqual(newStash));
+    it("should POST new stash", async () => {
+      const actual = await StashStore.addStash(newStash);
+
+      expect(actual).toEqual(newStash);
     });
   });
 });
