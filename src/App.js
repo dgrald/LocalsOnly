@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import StashMap from './StashMap';
 import AddStashButton from './AddStashButton';
-import $ from 'jquery';
+import StashStore from './stores/StashStore';
 import _ from 'lodash';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { stashes : [] };
-  }
-
-  source = () => {
-    return "https://locals-only-service.herokuapp.com/trails";
   }
 
   componentDidMount() {
@@ -24,9 +20,9 @@ class App extends Component {
   }
 
   refreshStashes = () => {
-      this.serverRequest = $.get(this.source(), function (result) {
+      this.serverRequest = StashStore.getAll().then(function(data){
         this.setState({
-          stashes: result
+          stashes: data
         });
       }.bind(this));
   }

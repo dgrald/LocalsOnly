@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import StashMap from './StashMap';
 import {Modal, Button} from 'react-bootstrap';
-import $ from 'jquery';
 import './AddStashModal.css';
 import LoadMask from './LoadMask';
 import ErrorModal from './ErrorModal';
+import StashStore from './stores/StashStore';
 
 class AddStashModal extends Component {
   state = {
@@ -40,11 +40,7 @@ class AddStashModal extends Component {
       this.setState({loadMask: true});
       let location = {type: "Point", coordinates: [this.state.selectlocation.lng, this.state.selectlocation.lat]};
       let data = {name: this.state.description, location: location};
-      $.ajax("https://locals-only-service.herokuapp.com/trails", {
-          data : JSON.stringify(data),
-          contentType : 'application/json',
-          type : 'POST',
-        }).then(function(){
+      StashStore.addStash(data).then(function(){
           this.onSuccess();
         }.bind(this), function(error){
           this.onFailure(error);
