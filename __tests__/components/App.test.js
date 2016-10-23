@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../src/App';
-import StashMap from '../src/StashMap';
+import App from '../../src/components/App';
+import StashMap from '../../src/components/StashMap';
 import _ from 'lodash';
 import { shallow } from 'enzyme';
 

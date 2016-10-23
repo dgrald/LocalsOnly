@@ -4,7 +4,7 @@ import {Modal, Button} from 'react-bootstrap';
 import './AddStashModal.css';
 import LoadMask from './LoadMask';
 import ErrorModal from './ErrorModal';
-import StashStore from './stores/StashStore';
+import StashStore from '../stores/StashStore';
 
 class AddStashModal extends Component {
   state = {

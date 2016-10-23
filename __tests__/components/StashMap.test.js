@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StashMap from '../src/StashMap';
+import StashMap from '../../src/components/StashMap';
 import _ from 'lodash';
 import { shallow } from 'enzyme';
 

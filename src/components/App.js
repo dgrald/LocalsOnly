@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import StashMap from './StashMap';
 import AddStashButton from './AddStashButton';
-import StashStore from './stores/StashStore';
+import StashStore from '../stores/StashStore';
 import _ from 'lodash';
 
 class App extends Component {
