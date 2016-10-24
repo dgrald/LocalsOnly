@@ -18,7 +18,7 @@ class AddStashModal extends Component {
   }
 
   onSuccess = () => {
-    this.setState({loadMask: false});
+    this.setState({loadMask: false, postButtonClass: "btn-primary"});
     this.props.close();
   }
 
@@ -37,7 +37,7 @@ class AddStashModal extends Component {
 
   post = () => {
     if(this.state.description && this.state.selectlocation) {
-      this.setState({loadMask: true});
+      this.setState({loadMask: true, postButtonClass: "disabled"});
       let location = {type: "Point", coordinates: [this.state.selectlocation.lng, this.state.selectlocation.lat]};
       let data = {name: this.state.description, location: location};
       StashStore.addStash(data).then(function(){

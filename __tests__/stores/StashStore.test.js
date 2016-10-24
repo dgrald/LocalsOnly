@@ -7,6 +7,8 @@ describe("StashStore", () => {
   let stashes = [{id: 1, name: "first"}, {id: 2, name: "2"}];
   let newStash = {id: 2, name: "third"};
 
+  let deleteStashResponse = {status: 201};
+
   $.ajax.mockImplementation((url, options) =>  {
     if(url == "https://locals-only-service.herokuapp.com/trails") {
       if(_.isEqual(options, {type: "GET"})) {
@@ -25,6 +27,16 @@ describe("StashStore", () => {
         );
       }
     }
+
+    if(url == "https://locals-only-service.herokuapp.com/trails/" + stashes[0].id) {
+      if(_.isEqual(options, {type: "DELETE"})) {
+        return new Promise((resolve, reject) => {
+            process.nextTick(
+              () => resolve(deleteStashResponse)
+            );
+        });
+      }
+    }
   });
 
   describe("getStashes()", () => {
@@ -40,6 +52,14 @@ describe("StashStore", () => {
       const actual = await StashStore.addStash(newStash);
 
       expect(actual).toEqual(newStash);
+    });
+  });
+
+  describe("deleteStash(stash)", () => {
+    it("should delete the input stash", async () => {
+       const actual = await StashStore.deleteStash(stashes[0]);
+
+       expect(actual).toEqual(deleteStashResponse);
     });
   });
 });

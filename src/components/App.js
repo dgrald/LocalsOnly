@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div id="container">
-          <StashMap markers={this.state.stashes}></StashMap>
+          <StashMap markers={this.state.stashes} refreshStashes={this.refreshStashes}></StashMap>
           <AddStashButton refreshStashes={this.refreshStashes}/>
       </div>
     );

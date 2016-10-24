@@ -25,7 +25,7 @@ class StashMap extends Component {
         <TileLayer
           url="https://api.mapbox.com/styles/v1/dgrald/ciu7h14go00082hqnzimmf3oq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGdyYWxkIiwiYSI6ImNpanJoaXRhYjBha2Z0aG01OW1ha3Q5ZG4ifQ.oVkcFro9ahsr9cLcZgoTgg"
         />
-        <StashMarkers markers={this.props.markers}/>
+        <StashMarkers markers={this.props.markers} refreshStashes={this.props.refreshStashes}/>
       </Map>
       </div>
     );

@@ -10,13 +10,17 @@ var StashStore = assign({}, EventEmitter.prototype, {
               type : 'GET',
             });
   },
-
   addStash: function(stash) {
     return $.ajax(baseUrl, {
         data : JSON.stringify(stash),
         contentType : 'application/json',
         type : 'POST',
       });
+  },
+  deleteStash: function(stash) {
+    return $.ajax(baseUrl + "/" + stash.id, {
+      type: 'DELETE'
+    });
   }
 });
 
