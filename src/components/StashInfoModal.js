@@ -8,17 +8,18 @@ class StashInfoModal extends Component {
   state = {
       hasError: false,
       loadMask: false,
-      error: null
+      error: null,
+      deleteButtonClass: 'btn-primary'
   };
 
   delete = () => {
-    this.setState({loadMask: true});
+    this.setState({loadMask: true, deleteButtonClass: 'disabled'});
     StashStore.deleteStash(this.props.stash).then(() => {
       this.setState({loadMask: false});
       this.props.close();
       this.props.refreshStashes();
     }, (error) => {
-      this.setState({loadMask: false, hasError: true, error: error});
+      this.setState({loadMask: false, hasError: true, error: error, deleteButtonClass: 'btn-primary'});
     });
   }
 
@@ -32,7 +33,7 @@ class StashInfoModal extends Component {
       <div>{this.props.stash.name}</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button bsStyle="primary" onClick={this.delete}>Delete Stash</Button>
+        <Button className={this.state.deleteButtonClass} onClick={this.delete}>Delete Stash</Button>
         <Button onClick={this.props.close}>Close</Button>
       </Modal.Footer>
       <LoadMask show={this.state.loadMask}/>

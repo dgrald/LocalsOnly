@@ -18,13 +18,13 @@ class AddStashModal extends Component {
   }
 
   onSuccess = () => {
-    this.setState({loadMask: false, postButtonClass: "btn-primary"});
+    this.setState({loadMask: false});
     this.props.close();
   }
 
   onFailure = (error) => {
     let errorMessage = error.statusText + ": " + error.responseText
-    this.setState({loadMask: false, hasError: true, error: errorMessage});
+    this.setState({loadMask: false, hasError: true, error: errorMessage, postButtonClass: this.getPostButtonClass()});
   }
 
   getPostButtonClass = (inputLocation, inputDescription) => {
