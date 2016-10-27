@@ -5,6 +5,8 @@ import './AddStashModal.css';
 import LoadMask from './LoadMask';
 import ErrorModal from './ErrorModal';
 import StashStore from '../stores/StashStore';
+import NewLocationSelectReducer from '../reducers/NewLocationSelectReducer';
+import AddLocationButtonClassReducer from '../reducers/AddLocationButtonClassReducer';
 
 class AddStashModal extends Component {
   state = {
@@ -24,15 +26,7 @@ class AddStashModal extends Component {
 
   onFailure = (error) => {
     let errorMessage = error.statusText + ": " + error.responseText
-    this.setState({loadMask: false, hasError: true, error: errorMessage, postButtonClass: this.getPostButtonClass()});
-  }
-
-  getPostButtonClass = (inputLocation, inputDescription) => {
-    if(!inputDescription) {
-      return "disabled";
-    }
-
-    return inputLocation ? "btn-primary" : "disabled";
+    this.setState({loadMask: false, hasError: true, error: errorMessage, postButtonClass: AddLocationButtonClassReducer.getNewClass(this.state.description, this.state.selectlocation)});
   }
 
   post = () => {
@@ -49,13 +43,14 @@ class AddStashModal extends Component {
   }
 
   selectedlocationchange = (newValue) => {
-    this.setState({selectlocation: newValue, postButtonClass: this.getPostButtonClass(newValue, this.state.description), markers: [{location: {coordinates : [newValue.lng, newValue.lat], type: "Point"}}]});
+    let newState = NewLocationSelectReducer.getNewState(this.state.description, newValue);
+    this.setState(newState);
   }
 
   handleDescriptionChange = (event) => {
     let newState = {
       description: event.target.value,
-      postButtonClass: this.getPostButtonClass(this.state.selectlocation, event.target.value)
+      postButtonClass: AddLocationButtonClassReducer.getNewClass(event.target.value, this.state.selectlocation)
     };
     this.setState(newState);
   }
