@@ -6,13 +6,13 @@ describe("AddLocationButtonClassReducer", () => {
 
   describe("getNewClass", () => {
     it("should return btn-primary if description and new location are truthy", () => {
-      let newClass = AddLocationButtonClassReducer.getNewClass("something", newLocation);
+      let newClass = AddLocationButtonClassReducer.getNewClass("something", [newLocation]);
 
       expect(newClass).toEqual("btn-primary");
     });
 
     it("should return disabled if description is not truthy", () => {
-      let newClass = AddLocationButtonClassReducer.getNewClass("", newLocation);
+      let newClass = AddLocationButtonClassReducer.getNewClass("", [newLocation]);
 
       expect(newClass).toEqual("disabled");
     });

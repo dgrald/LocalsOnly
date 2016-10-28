@@ -2,8 +2,8 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var AddLocationButtonClassReducer = assign({}, EventEmitter.prototype, {
-  getNewClass: function(description, locationSelect) {
-    return (description && locationSelect) ? "btn-primary" : "disabled";
+  getNewClass: function(description, markers) {
+    return (description && markers && markers.length) ? "btn-primary" : "disabled";
   }
 });
 

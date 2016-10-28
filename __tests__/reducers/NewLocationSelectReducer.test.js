@@ -19,9 +19,12 @@ describe("NewLocationSelectReducer", () => {
 
       let newState = NewLocationSelectReducer.getNewState(inputState, newLocation);
 
-      let expectedState = {selectlocation: newLocation, postButtonClass: newLocationButtonClass, markers: [{location: {coordinates : [newLocation.lng, newLocation.lat], type: "Point"}}]};
+      let expectedState = {
+        postButtonClass: newLocationButtonClass,
+        markers: [{location: {coordinates : [newLocation.lng, newLocation.lat], type: "Point"}}]
+      };
       expect(newState).toEqual(expectedState);
-      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, newLocation);
+      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, [newLocation]);
     });
   });
 
@@ -33,12 +36,11 @@ describe("NewLocationSelectReducer", () => {
       let newState = NewLocationSelectReducer.getNewState(inputState, newLocation);
 
       let expectedState = {
-        selectlocation: newLocation,
         postButtonClass: newLocationButtonClass,
         markers: [{location: {coordinates : [[newLocation.lng, newLocation.lat]], type: "LineString"}}]
       };
       expect(newState).toEqual(expectedState);
-      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, newLocation);
+      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, [newLocation]);
     });
 
     it("should return correct GeoJSON when adding new point to existing line", () => {
@@ -54,12 +56,11 @@ describe("NewLocationSelectReducer", () => {
       let newState = NewLocationSelectReducer.getNewState(inputState, location2);
 
       let expectedState = {
-        selectlocation: location2,
         postButtonClass: newLocationButtonClass,
         markers: [{location: {coordinates : [[newLocation.lng, newLocation.lat], [location2.lng, location2.lat]], type: "LineString"}}]
       };
       expect(newState).toEqual(expectedState);
-      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, newLocation);
+      expect(AddLocationButtonClassReducer.getNewClass).toBeCalledWith(description, [newLocation]);
     });
   });
 
