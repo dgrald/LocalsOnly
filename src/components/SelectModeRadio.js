@@ -13,7 +13,12 @@ class AddStashModal extends Component {
                value="LineString"
                checked={this.props.geometry === "LineString"}
                onChange={this.props.onGeometryChange} />Line
-               </div>;
+    {' '}
+     <input type="radio" name="polygon"
+                value="Polygon"
+                checked={this.props.geometry === "Polygon"}
+                onChange={this.props.onGeometryChange} />Polygon
+    </div>
   }
 }
 

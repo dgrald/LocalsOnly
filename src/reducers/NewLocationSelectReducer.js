@@ -7,6 +7,7 @@ var NewLocationSelectReducer = assign({}, EventEmitter.prototype, {
     let newPostButtonClass = AddLocationButtonClassReducer.getNewClass(oldState.description, [locationSelect]);
     let newCoordinates = [locationSelect.lng, locationSelect.lat];
     switch (oldState.mode) {
+      case "Polygon":
       case "LineString":
         let updatedCoordinates = (oldState.markers && oldState.markers.length) ?
           oldState.markers[0].location.coordinates.concat([newCoordinates])
