@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import StashMap from './StashMap';
 import AddStashButton from './AddStashButton';
+import AddUserButton from './AddUserButton';
 import StashStore from '../stores/StashStore';
 import _ from 'lodash';
 
@@ -32,6 +33,7 @@ class App extends Component {
       <div id="container">
           <StashMap markers={this.state.stashes} refreshStashes={this.refreshStashes}></StashMap>
           <AddStashButton refreshStashes={this.refreshStashes}/>
+          <AddUserButton/>
       </div>
     );
   }
